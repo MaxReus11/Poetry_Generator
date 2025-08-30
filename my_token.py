@@ -2,6 +2,7 @@ import os, string, requests
 import torch
 from torch.utils.data import Dataset
 
+
 class CharDataset(Dataset):
     def __init__(self, text, token_to_idx, seq_len):
         self.seq_len = seq_len
@@ -28,11 +29,12 @@ def reading(seq_len):
     TEXT_START = 45
     TEXT_END = -368
     text = text[TEXT_START: TEXT_END]
+    print(len(text))
     assert len(text) == 2616
 
-    text = ''.join().lower()
+    text = ''.join(text).lower()
 
-    assert len(text) ==100225, 'Are you sure you have concatenated all the strings?'
+    assert len(text) == 100225, 'Are you sure you have concatenated all the strings?'
     assert not any([x in set(text) for x in string.ascii_uppercase]), 'Uppercase letters are present'
 
     tokens = sorted(set(text))
@@ -43,8 +45,9 @@ def reading(seq_len):
 
     train_data = CharDataset(text, token_to_idx, seq_len)
     val_data = CharDataset(text, token_to_idx, seq_len)
-
-    return train_data, val_data
+    vocab_size = len(tokens)
+    print(train_data, val_data, vocab_size)
+    return train_data, val_data, vocab_size
 
 
 

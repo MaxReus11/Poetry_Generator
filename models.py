@@ -5,6 +5,7 @@ import torch
 class Vanilla_RNN(nn.Module):
     def __init__(self, vocab_size, embedding_dim, hidden_dim):
         super(Vanilla_RNN, self).__init__()
+        self.hidden_dim = hidden_dim
         self.embedding = nn.Embedding(vocab_size, embedding_dim)
         self.W_ih = nn.Linear(embedding_dim, hidden_dim)
         self.W_hh = nn.Linear(hidden_dim, hidden_dim)
@@ -16,18 +17,17 @@ class Vanilla_RNN(nn.Module):
 
         if h_0 is None:
             h_t = torch.zeros(batch_size, self.hidden_dim, device=x.device)
-
         else:
             h_t = h_0
 
-            outputs = []
-            for t in range(seq_line):
-                x_t = x_embedded[:,t,:]
-                h_t = self.activation(self.W_ih(x_t)+self.W_hh(h_t))
-                outputs.append(h_t.unsqueeze(1))
-            outputs = torch.cat(outputs, dim=1)
-            logits = self.output_layer(outputs)
-            return logits, h_t
+        outputs = []
+        for t in range(seq_line):
+            x_t = x_embedded[:,t,:]
+            h_t = self.activation(self.W_ih(x_t)+self.W_hh(h_t))
+            outputs.append(h_t.unsqueeze(1))
+        outputs = torch.cat(outputs, dim=1)
+        logits = self.output_layer(outputs)
+        return logits, h_t
 
 class Vanilla_LSTM(nn.Module):
     def __init__(self, vocab_size, embedding_dim, hidden_dim):

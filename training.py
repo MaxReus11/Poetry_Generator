@@ -21,7 +21,7 @@ def training(model, train_data, test_data, batch_size, num_epochs, device, crite
             loss = criterion(logits.view(-1, vocab_size), Y_batch.view(-1))
 
             optimizer.zero_grad()
-            loss.backwards()
+            loss.backward()
             optimizer.step()
 
             epoch_train_loss += loss.item()
@@ -37,7 +37,7 @@ def training(model, train_data, test_data, batch_size, num_epochs, device, crite
 
                 logits, _ = model(X_batch)
 
-                val_loss = criterion(logits.view(), Y_batch.view())
+                val_loss = criterion(logits.view(-1, vocab_size), Y_batch.view(-1))
 
                 epoch_val_loss += val_loss.item()
 
