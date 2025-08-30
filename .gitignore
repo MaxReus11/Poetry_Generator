@@ -1,0 +1,23 @@
+# Виртуальные окружения
+venv/
+.env/
+
+# Кеши Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# Конфигурации IDE (PyCharm, VSCode)
+.idea/
+.vscode/
+
+# Файлы логов
+*.log
+
+# Jupyter Notebook checkpoints
+.ipynb_checkpoints/
+
+# Системные файлы
+.DS_Store
+Thumbs.db
