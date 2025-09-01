@@ -5,12 +5,19 @@ import models
 import torch
 #Hyperparameters
 #_______________________________________________________________________
-seq_line = 50
-batch_size = 256
-embedding_dim = 32
-hidden_dim = 32
-num_epochs = 10
-lr = 0.1
+print('Введи значения гиперпараметров: ')
+print('seq_line - ')
+seq_line = int(input())
+print('batch_size - ')
+batch_size = int(input())
+print('embedding_dim - ')
+embedding_dim = int(input())
+print('hidden_dim - ')
+hidden_dim = int(input())
+print('num_epochs - ')
+num_epochs = int(input())
+print('lr - ')
+lr = float(input())
 
 #______________________________________________________________________
 
