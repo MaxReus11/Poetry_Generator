@@ -5,20 +5,40 @@ import models
 import torch
 #Hyperparameters
 #_______________________________________________________________________
-print('Введи значения гиперпараметров: ')
-print('seq_line - ')
-seq_line = int(input())
-print('batch_size - ')
-batch_size = int(input())
-print('embedding_dim - ')
-embedding_dim = int(input())
-print('hidden_dim - ')
-hidden_dim = int(input())
-print('num_epochs - ')
-num_epochs = int(input())
-print('lr - ')
-lr = float(input())
+default_seq_line = 32
+default_batch_size = 128
+default_embedding_dim = 64
+default_hidden_dim = 128
+default_num_epochs = 10
+default_lr = 0.01
 
+default_list = [default_seq_line,
+                         default_batch_size,
+                         default_embedding_dim,
+                         default_hidden_dim,
+                         default_num_epochs,
+                         default_lr]
+default_text = [ 'seq_line',
+                'batch_size',
+                'embedding_dim',
+                'hidden_dim',
+                'num_epochs',
+                'lr']
+
+
+hyperparameters = []
+print('Введи значения гиперпараметров: ')
+for i in range(len(default_list)):
+    try:
+        user_input = input(f'{default_text[i]}: ')
+        if user_input.strip() == "":
+            user_input = default_list[i]
+    except (KeyboardInterrupt, EOFError):
+        user_input = default_list[i]
+    hyperparameters.append(user_input)
+
+seq_line, batch_size, embedding_dim, hidden_dim, num_epochs, lr = tuple(hyperparameters)
+print(tuple(hyperparameters))
 #______________________________________________________________________
 
 if torch.cuda.is_available():

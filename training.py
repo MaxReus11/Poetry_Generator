@@ -1,5 +1,6 @@
 from torch.utils.data import DataLoader
 import matplotlib.pyplot as plt
+from IPython.display import clear_output, display
 from torch import no_grad
 def training(model, train_data, test_data, batch_size, num_epochs, device, criterion, optimizer, vocab_size):
 
@@ -7,7 +8,7 @@ def training(model, train_data, test_data, batch_size, num_epochs, device, crite
     test_batches = DataLoader(test_data,  batch_size = batch_size, shuffle = True, drop_last=True)
 
     train_loss = []
-    val_loss = []
+    test_loss = []
     for epoch in range(num_epochs):
         model.train()
         epoch_train_loss = 0
@@ -42,14 +43,17 @@ def training(model, train_data, test_data, batch_size, num_epochs, device, crite
                 epoch_val_loss += val_loss.item()
 
         avg_epoch_test_loss = epoch_val_loss / len(test_batches)
-        train_loss.append(avg_epoch_test_loss)
+        test_loss.append(avg_epoch_test_loss)
 
         print(f"Epoch: {epoch+1:2d} | Training loss: {avg_epoch_train_loss:.4f} | Validation lost: {avg_epoch_test_loss:.4f}")
+        clear_output(wait=True)
 
-    plt.plot(range(1, num_epochs+1), train_loss, c='blue', label = 'Train')
-    plt.plot(range(1, num_epochs + 1), val_loss, c='orange', label='Test')
-    plt.legend()
-    plt.xlabel('Epoch')
-    plt.ylabel('Cross Entropy Loss')
-    plt.show()
+        plt.plot(range(1, epoch+2), train_loss, c='blue', label = 'Train')
+        plt.plot(range(1, epoch+2), test_loss, c='orange', label='Test')
+        plt.xlabel('Epoch')
+        plt.ylabel('Cross Entropy Loss')
+        plt.legend()
+        plt.grid(True)
+        plt.pause(0.01)
+        plt.show()
 

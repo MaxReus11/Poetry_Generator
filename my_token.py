@@ -29,7 +29,6 @@ def reading(seq_len):
     TEXT_START = 45
     TEXT_END = -368
     text = text[TEXT_START: TEXT_END]
-    print(len(text))
     assert len(text) == 2616
 
     text = ''.join(text).lower()
